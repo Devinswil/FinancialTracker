@@ -1,6 +1,8 @@
 package com.pluralsight;
 
+import java.io.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -60,6 +62,31 @@ public class FinancialTracker {
         // For example: 2023-04-15|10:13:25|ergonomic keyboard|Amazon|-89.50
         // After reading all the transactions, the file should be closed.
         // If any errors occur, an appropriate error message should be displayed.
+//Created this method to read from file or create a new one and add to it.
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            String line;
+            while ((line = reader.readLine()) != null) ;
+            String[] tranParts = line.split("\\|");
+            LocalDate date = LocalDate.parse(tranParts[0], DATE_FORMATTER);
+            LocalTime time = LocalTime.parse(tranParts[1], TIME_FORMATTER);
+            String description = tranParts[2];
+            String vendor = tranParts[3];
+            double amount = Double.parseDouble(tranParts[4]);
+            Transaction nTransaction = new Transaction(date, time, description, vendor, amount);
+            transactions.add(nTransaction);
+
+
+
+        } catch (Exception e) {
+            System.err.println("That file does not exist...Creating a new file!");
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter("OtherTransaction.txt"));
+            } catch (IOException ex) {
+                System.err.println("Failed to create a new file.");
+            }
+
+        }
     }
 
     private static void addDeposit(Scanner scanner) {
