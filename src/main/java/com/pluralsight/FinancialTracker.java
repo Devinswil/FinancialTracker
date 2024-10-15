@@ -63,32 +63,27 @@ public class FinancialTracker {
         // After reading all the transactions, the file should be closed.
         // If any errors occur, an appropriate error message should be displayed.
 
-        //Created this method to read from file or create a new one and add to it.
+        //Created this method to read from file and split information into its corresponding variable
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
             String line;
-            while ((line = reader.readLine()) != null) ;
-            String[] tranParts = line.split("\\|");
-            LocalDate date = LocalDate.parse(tranParts[0], DATE_FORMATTER);
-            LocalTime time = LocalTime.parse(tranParts[1], TIME_FORMATTER);
-            String description = tranParts[2];
-            String vendor = tranParts[3];
-            double amount = Double.parseDouble(tranParts[4]);
-            Transaction nTransaction = new Transaction(date, time, description, vendor, amount);
-            transactions.add(nTransaction);
-
-
+            while ((line = reader.readLine()) != null) {
+                String[] tranParts = line.split("\\|");
+                if (tranParts.length < 5) {
+                    LocalDate date = LocalDate.parse(tranParts[0], DATE_FORMATTER);
+                    LocalTime time = LocalTime.parse(tranParts[1], TIME_FORMATTER);
+                    String description = tranParts[2];
+                    String vendor = tranParts[3];
+                    double amount = Double.parseDouble(tranParts[4]);
+                    Transaction nTransaction = new Transaction(date, time, description, vendor, amount);
+                    transactions.add(nTransaction);
+                }
+            }
 
 
         } catch (Exception e) {
-            System.err.println("That file does not exist...Creating a new file!");
-            try {
-                BufferedWriter writer = new BufferedWriter(new FileWriter("OtherTransactions.txt"));
-                System.out.println("What is the name of the file");
-                String newfileName= s
-            } catch (IOException ex) {
-                System.err.println("Failed to create a new file.");
-            }
+            System.err.println("That file does not exist.");
+
 
         }
     }
@@ -100,23 +95,22 @@ public class FinancialTracker {
         // After validating the input, a new `Transaction` object should be created with the entered values.
         // The new deposit should be added to the `transactions` ArrayList.
         System.out.println("What is the date of this date of this deposit?");
-        LocalDate dDate=LocalDate.parse(scanner.nextLine(), DATE_FORMATTER);
+        LocalDate dDate = LocalDate.parse(scanner.nextLine(), DATE_FORMATTER);
         System.out.println("What is the time of this deposit?");
-        LocalTime dTime =LocalTime.parse(scanner.nextLine(),TIME_FORMATTER);
+        LocalTime dTime = LocalTime.parse(scanner.nextLine(), TIME_FORMATTER);
         System.out.println("What is the description of this deposit?");
-        String dDesc= scanner.nextLine();
+        String dDesc = scanner.nextLine();
         System.out.println("Who is the Vendor of this deposit?");
-        String dVend= scanner.nextLine();
+        String dVend = scanner.nextLine();
         System.out.println("How much would you like to deposit?");
-        double dAmount=scanner.nextDouble();
-        if(dAmount<=0){
+        double dAmount = scanner.nextDouble();
+        if (dAmount <= 0) {
             System.err.println("Error! You can not deposit a negative amount!");
             return;
 
-        } Transaction nTransaction = new Transaction(dDate, dTime, dDesc, dVend, dAmount);
+        }
+        Transaction nTransaction = new Transaction(dDate, dTime, dDesc, dVend, dAmount);
         transactions.add(nTransaction);
-
-
 
 
     }
@@ -128,15 +122,15 @@ public class FinancialTracker {
         // After validating the input, a new `Transaction` object should be created with the entered values.
         // The new payment should be added to the `transactions` ArrayList.
         System.out.println("What is the date of this date of this payment");
-        LocalDate pDate=LocalDate.parse(scanner.nextLine(), DATE_FORMATTER);
-        System.out.println("What is the time of this deposit?");
-        LocalTime pTime =LocalTime.parse(scanner.nextLine(),TIME_FORMATTER);
-        System.out.println("What is the description of this deposit?");
-        String pDesc= scanner.nextLine();
-        System.out.println("Who is the Vendor of this deposit?");
-        String pVend= scanner.nextLine();
-        System.out.println("How much would you like to deposit?");
-        double pAmount=scanner.nextDouble();
+        LocalDate pDate = LocalDate.parse(scanner.nextLine(), DATE_FORMATTER);
+        System.out.println("What is the time of this payment?");
+        LocalTime pTime = LocalTime.parse(scanner.nextLine(), TIME_FORMATTER);
+        System.out.println("What is the description of this payment?");
+        String pDesc = scanner.nextLine();
+        System.out.println("Who is the Vendor of this payment?");
+        String pVend = scanner.nextLine();
+        System.out.println("How much would you like to payment?");
+        double pAmount = scanner.nextDouble();
         double dudAmount = pAmount * -1;
         Transaction nTransaction = new Transaction(pDate, pTime, pDesc, pVend, dudAmount);
         transactions.add(nTransaction);
@@ -182,6 +176,9 @@ public class FinancialTracker {
     private static void displayLedger() {
         // This method should display a table of all transactions in the `transactions` ArrayList.
         // The table should have columns for date, time, description, vendor, and amount.
+        for (Transaction transaction : transactions) {
+            System.out.println(transaction);
+        }
     }
 
     private static void displayDeposits() {
