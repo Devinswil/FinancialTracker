@@ -62,7 +62,8 @@ public class FinancialTracker {
         // For example: 2023-04-15|10:13:25|ergonomic keyboard|Amazon|-89.50
         // After reading all the transactions, the file should be closed.
         // If any errors occur, an appropriate error message should be displayed.
-//Created this method to read from file or create a new one and add to it.
+
+        //Created this method to read from file or create a new one and add to it.
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
             String line;
@@ -78,10 +79,13 @@ public class FinancialTracker {
 
 
 
+
         } catch (Exception e) {
             System.err.println("That file does not exist...Creating a new file!");
             try {
-                BufferedWriter writer = new BufferedWriter(new FileWriter("OtherTransaction.txt"));
+                BufferedWriter writer = new BufferedWriter(new FileWriter("OtherTransactions.txt"));
+                System.out.println("What is the name of the file");
+                String newfileName= s
             } catch (IOException ex) {
                 System.err.println("Failed to create a new file.");
             }
@@ -95,6 +99,26 @@ public class FinancialTracker {
         // The amount should be a positive number.
         // After validating the input, a new `Transaction` object should be created with the entered values.
         // The new deposit should be added to the `transactions` ArrayList.
+        System.out.println("What is the date of this date of this deposit?");
+        LocalDate dDate=LocalDate.parse(scanner.nextLine(), DATE_FORMATTER);
+        System.out.println("What is the time of this deposit?");
+        LocalTime dTime =LocalTime.parse(scanner.nextLine(),TIME_FORMATTER);
+        System.out.println("What is the description of this deposit?");
+        String dDesc= scanner.nextLine();
+        System.out.println("Who is the Vendor of this deposit?");
+        String dVend= scanner.nextLine();
+        System.out.println("How much would you like to deposit?");
+        double dAmount=scanner.nextDouble();
+        if(dAmount<=0){
+            System.err.println("Error! You can not deposit a negative amount!");
+            return;
+
+        } Transaction nTransaction = new Transaction(dDate, dTime, dDesc, dVend, dAmount);
+        transactions.add(nTransaction);
+
+
+
+
     }
 
     private static void addPayment(Scanner scanner) {
@@ -103,6 +127,21 @@ public class FinancialTracker {
         // The amount received should be a positive number then transformed to a negative number.
         // After validating the input, a new `Transaction` object should be created with the entered values.
         // The new payment should be added to the `transactions` ArrayList.
+        System.out.println("What is the date of this date of this payment");
+        LocalDate pDate=LocalDate.parse(scanner.nextLine(), DATE_FORMATTER);
+        System.out.println("What is the time of this deposit?");
+        LocalTime pTime =LocalTime.parse(scanner.nextLine(),TIME_FORMATTER);
+        System.out.println("What is the description of this deposit?");
+        String pDesc= scanner.nextLine();
+        System.out.println("Who is the Vendor of this deposit?");
+        String pVend= scanner.nextLine();
+        System.out.println("How much would you like to deposit?");
+        double pAmount=scanner.nextDouble();
+        double dudAmount = pAmount * -1;
+        Transaction nTransaction = new Transaction(pDate, pTime, pDesc, pVend, dudAmount);
+        transactions.add(nTransaction);
+
+
     }
 
     private static void ledgerMenu(Scanner scanner) {
