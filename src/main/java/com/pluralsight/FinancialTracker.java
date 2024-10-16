@@ -256,7 +256,8 @@ public class FinancialTracker {
                     System.out.println("what vendor would you like to search for?");
                     String vendor = scanner.nextLine();
                     filterTransactionsByVendor(vendor);
-                    scanner.nextLine();
+
+                    break;
                 case "0":
                     running = false;
                 default:
@@ -273,13 +274,32 @@ public class FinancialTracker {
         // The method loops through the transactions list and checks each transaction's date against the date range.
         // Transactions that fall within the date range are printed to the console.
         // If no transactions fall within the date range, the method prints a message indicating that there are no results.
-       boolean found = false;
-        for (Transaction transaction : transactions) {
-            if (transaction)
+            // Adjust endDate to the end of the month if needed
+            endDate = endDate.withDayOfMonth(endDate.lengthOfMonth());
 
+            boolean hasResults = false;
+
+            // Loop through the transactions
+            for (Transaction transaction : transactions) {
+                LocalDate transactionDate = transaction.getDate(); // Assuming Transaction has a method getDate()
+
+                // Check if the transaction date is within the range
+                if ((transactionDate.isAfter(startDate) || transactionDate.isEqual(startDate)) &&
+                        (transactionDate.isBefore(endDate) || transactionDate.isEqual(endDate))) {
+                    System.out.println(transaction); // Print the transaction
+                    hasResults = true; // Mark that we found at least one result
+                }
+            }
+
+            // If no transactions were found, print a message
+            if (!hasResults) {
+                System.out.println("No transactions found within the specified date range.");
+            }
 
         }
-    }
+
+
+
 
 
     private static void filterTransactionsByVendor(String vendor) {
