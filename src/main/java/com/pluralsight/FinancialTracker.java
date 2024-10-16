@@ -68,8 +68,9 @@ public class FinancialTracker {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
             String line;
             while ((line = reader.readLine()) != null) {
+
                 String[] tranParts = line.split("\\|");
-                if (tranParts.length < 5) {
+                if (tranParts.length == 5) {
                     LocalDate date = LocalDate.parse(tranParts[0], DATE_FORMATTER);
                     LocalTime time = LocalTime.parse(tranParts[1], TIME_FORMATTER);
                     String description = tranParts[2];
@@ -109,8 +110,16 @@ public class FinancialTracker {
             return;
 
         }
-        Transaction nTransaction = new Transaction(dDate, dTime, dDesc, dVend, dAmount);
-        transactions.add(nTransaction);
+        transactions.add(new Transaction(dDate, dTime, dDesc, dVend, dAmount));
+        try (BufferedWriter br = new BufferedWriter(new FileWriter(FILE_NAME,true))){
+            String output=String.format("%s|%s|%s|%s|%.2f%n",dDate.format(DATE_FORMATTER),dTime.format(TIME_FORMATTER),dDesc,dVend,dAmount);
+            System.out.println(output);
+            br.write(output);
+            br.newLine();
+            System.out.println("payment was successful");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
 
     }
@@ -132,8 +141,18 @@ public class FinancialTracker {
         System.out.println("How much would you like to payment?");
         double pAmount = scanner.nextDouble();
         double dudAmount = pAmount * -1;
-        Transaction nTransaction = new Transaction(pDate, pTime, pDesc, pVend, dudAmount);
-        transactions.add(nTransaction);
+        transactions.add(new Transaction(pDate, pTime, pDesc, pVend, dudAmount));
+        try (BufferedWriter br = new BufferedWriter(new FileWriter(FILE_NAME,true))){
+            String output=String.format("%s|%s|%s|%s|%.2f%n",pDate.format(DATE_FORMATTER),pTime.format(TIME_FORMATTER),pDesc,pVend,dudAmount);
+            System.out.println(output);
+            br.write(output);
+            br.newLine();
+            //System.out.println("payment was successful");
+            scanner.nextLine();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+
+        }
 
 
     }
@@ -184,11 +203,23 @@ public class FinancialTracker {
     private static void displayDeposits() {
         // This method should display a table of all deposits in the `transactions` ArrayList.
         // The table should have columns for date, time, description, vendor, and amount.
+        for (Transaction transaction : transactions) {
+            if(transaction.getAmount()>0){
+                System.out.println(transaction);
+            }
+
+        }
     }
 
     private static void displayPayments() {
         // This method should display a table of all payments in the `transactions` ArrayList.
         // The table should have columns for date, time, description, vendor, and amount.
+        for (Transaction transaction : transactions) {
+            if(transaction.getAmount()<0){
+                System.out.println(transaction);
+            }
+
+        }
     }
 
     private static void reportsMenu(Scanner scanner) {
