@@ -1,4 +1,4 @@
-# Project Title
+# Devin Wilson Financial Tracker
 
 ## Description of the Project
 
