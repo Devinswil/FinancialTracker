@@ -115,8 +115,8 @@ public class FinancialTracker {
             String output = String.format("%s|%s|%s|%s|%.2f%n", dDate.format(DATE_FORMATTER), dTime.format(TIME_FORMATTER), dDesc, dVend, dAmount);
             System.out.println(output);
             br.write(output);
-            br.newLine();
             System.out.println("payment was successful");
+            scanner.nextLine();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -146,7 +146,6 @@ public class FinancialTracker {
             String output = String.format("%s|%s|%s|%s|%.2f%n", pDate.format(DATE_FORMATTER), pTime.format(TIME_FORMATTER), pDesc, pVend, dudAmount);
             System.out.println(output);
             br.write(output);
-            //br.newLine();
             System.out.println("payment was successful");
             scanner.nextLine();
         } catch (IOException e) {
@@ -270,7 +269,7 @@ public class FinancialTracker {
                 case "5":
                     // Prompt the user to enter a vendor name, then generate a report for all transactions
                     // with that vendor, including the date, time, description, vendor, and amount for each transaction.
-                    System.out.println("what vendor would you like to search for?");
+                    System.out.println("What vendor would you like to search for?");
                     String vendor = scanner.nextLine();
                     filterTransactionsByVendor(vendor);
 

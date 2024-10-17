@@ -1,21 +1,39 @@
-# Devin Wilson Financial Tracker
+# Devin Wilson's Financial Tracker
 
 ## Description of the Project
 
-Briefly describe what this Java console application does. Mention its purpose and who the intended users are. Explain the main functionality and what problems it aims to solve.
+My financial tracker is an application designed for financial account owners to manage their money and access bank statements easily. Users can navigate through two key menus: the main menu, where they can make payments and add deposits, and the ledger menu, which displays reports based on dates and vendors. This setup allows users to access everything they need with just a few inputs.
 
-![Class Diagram](path/to/your/class_diagram.png)
 
 ## User Stories
 
-List the user stories that guided the development of your application. Format these stories as: "As a [type of user], I want [some goal] so that [some reason]."
-
-- As a user, I want to be able to input my data, so that the application can process it accordingly.
-- As a user, I want to receive immediate feedback, so I can understand what to do next.
+- As a user, As the owner I want a method that will allow users to make a payment. This will allow the users to easily be able to make payments within the app.
+- As the owner I would like to have a deposit feature where date, vendor, and amount of money is asked. This will allow for money to be put into accounts.
+- As a User I want to be able to load transactions from a file or create one if it does not exist. This will allow for all transactions to be logged.
+- As the user I would like a list of all transactions to be shown with the description of the date, time, amount, and vendor. This will allow for users to go back and check the account history.
+- As the user I would also like to have payments filter where I am shown only the payments I have made. This will allow me to really see what is going out of my account.
+- As the user I want to be able to filter transactions by the dates they were processed. This will allow for me to see how often and when I am making transactions.
+- As the owner method where I am able to select a number, and the corresponding action will begin. This will make it easier to navigate the menu.
+- As the user I should be able to filter the transaction ledger and only show the deposits I have made. This will allow for more efficient searches within the app.
+- As the user I want to be able to filter transactions by the vendor I am making the transactions to. This will give the users a better overlook at where the money is going.
+- As the owner I would like to create a "transaction" that holds date, time, description, vendor, and amount. This will allow for the system to run easier and already hold the information that is needed for other tasks.
+- * As the owner I would like to ask the user in the menu if they would like to make a new account. This will ask for an email, username, and password.
+- * As the owner I would like to prompt users to sign win with their accounts just to make sure their account information is being stored correctly and more personalized monthly updates.
+- * As the owner I want to give the user the option to see their monthly account summary, this will show the amount of money they added, deducted, and where it was going.
 
 ## Setup
 
-Instructions on how to set up and run the project using IntelliJ IDEA.
+For Payments and Deposit
+1. Insert date following this format "yyyy-MM-dd"
+2. Insert time following this format "HH:mm:ss"
+3. Next list description, vendor, and amount of a deposit.
+
+Ledger Menu
+1. Press "L" in main menu.
+2. "D" and "P" will show payment and deposit history.
+3. "R" will allow to see reports based vendors and dates.
+4. Dates range current month to pervious year.
+5. "5" will allow for you to enter the vendor to want to search for.
 
 ### Prerequisites
 
@@ -34,37 +52,38 @@ Follow these steps to get your application running within IntelliJ IDEA:
 
 ## Technologies Used
 
-- Java: Mention the version you are using.
-- Any additional libraries or frameworks used in the project.
+- Java: Intellij IDEA Community Edition 2022.3.2
+
 
 ## Demo
 
-Include screenshots or GIFs that show your application in action. Use tools like [Giphy Capture](https://giphy.com/apps/giphycapture) to record a GIF of your application.
-
-![Application Screenshot](path/to/your/screenshot.png)
+https://yearuptemp-my.sharepoint.com/:w:/g/personal/dwilson_pgh_yearup_org/EcyRkEl03gFOhj15xA1JvN0B3MU_ALhYAYm1eNfuScUx2g?e=rCUsgM
 
 ## Future Work
 
-Outline potential future enhancements or functionalities you might consider adding:
 
-- Additional feature to be developed.
-- Improvement of current functionalities.
+
+- *  I would like to ask the user in the menu if they would like to make a new account. This will ask for an email, username, and password.
+- *  I would like to prompt users to sign win with their accounts just to make sure their account information is being stored correctly and more personalized monthly updates.
+- *  I want to give the user the option to see their monthly account summary, this will show the amount of money they added, deducted, and where it was going.
 
 ## Resources
 
-List resources such as tutorials, articles, or documentation that helped you during the project.
 
-- [Java Programming Tutorial](https://www.example.com)
-- [Effective Java](https://www.example.com)
+
+- Raymond Git Hub https://github.com/RayMaroun
+- .dayOfMonth/Year(https://www.tutorialspoint.com/javatime/javatime_localdate_withdayofmonth.htm)
+- .minusMonths(https://www.geeksforgeeks.org/localdate-minusyears-method-in-java-with-examples/)
+- .thisAfter(https://www.geeksforgeeks.org/localdate-isafter-method-in-java-with-examples/)
+- Chat GPT for dumbing down methods.
 
 ## Team Members
 
-- **Name 1** - Specific contributions or roles.
-- **Name 2** - Specific contributions or roles.
+- **Brandon** - Helped with questions and concerns
+- **Cameron** - Helped with loading transaction.csv
+- **Emre** - Answered various questions
 
 ## Thanks
 
-Express gratitude towards those who provided help, guidance, or resources:
-
-- Thank you to [Mentor's Name] for continuous support and guidance.
-- A special thanks to all teammates for their dedication and teamwork.
+Thank you to Raymond for continuous support and guidance no matter how dumb the question can be.
+I would also like to thank Brandon, Cameron, and Emre for going out their way and helping me!
