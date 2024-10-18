@@ -80,7 +80,8 @@ public class FinancialTracker {
 
         }
     }
-
+        //Created a buffered writer for both deposit and payment in order to write to the .csv file
+        // Set the parameter to true in order to save it to the file after code runs
     private static void addDeposit(Scanner scanner) {
 
         System.out.println("What is the date of this date of this deposit?");
@@ -101,7 +102,6 @@ public class FinancialTracker {
         transactions.add(new Transaction(dDate, dTime, dDesc, dVend, dAmount));
         try (BufferedWriter br = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
             String output = String.format("%s|%s|%s|%s|%.2f%n", dDate.format(DATE_FORMATTER), dTime.format(TIME_FORMATTER), dDesc, dVend, dAmount);
-            System.out.println(output);
             br.write(output);
             System.out.println("payment was successful");
             scanner.nextLine();
@@ -113,7 +113,7 @@ public class FinancialTracker {
     }
 
     private static void addPayment(Scanner scanner) {
-//
+
         System.out.println("What is the date of this date of this payment");
         LocalDate pDate = LocalDate.parse(scanner.nextLine(), DATE_FORMATTER);
         System.out.println("What is the time of this payment?");
@@ -128,7 +128,6 @@ public class FinancialTracker {
         transactions.add(new Transaction(pDate, pTime, pDesc, pVend, dudAmount));
         try (BufferedWriter br = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
             String output = String.format("%s|%s|%s|%s|%.2f%n", pDate.format(DATE_FORMATTER), pTime.format(TIME_FORMATTER), pDesc, pVend, dudAmount);
-            System.out.println(output);
             br.write(output);
             System.out.println("payment was successful");
             scanner.nextLine();
@@ -181,7 +180,7 @@ public class FinancialTracker {
             System.out.println(transaction);
         }
     }
-
+            // transaction >0 because all deposits should be positive
     private static void displayDeposits() {
         for (Transaction transaction : transactions) {
             if (transaction.getAmount() > 0) {
@@ -190,7 +189,7 @@ public class FinancialTracker {
 
         }
     }
-
+            // transaction <0 because we made the transaction amount negative in addPayment method
     private static void displayPayments() {
         for (Transaction transaction : transactions) {
             if (transaction.getAmount() < 0) {
@@ -217,28 +216,29 @@ public class FinancialTracker {
             switch (input) {
                 case "1":
 
-                    LocalDate sD = LocalDate.now();
-                    LocalDate sM = LocalDate.now().withDayOfMonth(1);
-                    filterTransactionsByDate(sM, sD);
+                    LocalDate startMonth2Date = LocalDate.now();
+                    LocalDate endMonth2Date = LocalDate.now().withDayOfMonth(1);
+                    filterTransactionsByDate(endMonth2Date, startMonth2Date);
                     break;
+
                 case "2":
 
-                    LocalDate startDate = LocalDate.now().minusMonths(1).withDayOfMonth(1);
-                    LocalDate endDate = LocalDate.now().minusMonths(1).withDayOfMonth(LocalDate.now().minusMonths(1).lengthOfMonth());
-                    filterTransactionsByDate(startDate, endDate);
+                    LocalDate startPerviousMonth = LocalDate.now().minusMonths(1).withDayOfMonth(1);
+                    LocalDate endPerviousMonth = LocalDate.now().minusMonths(1).withDayOfMonth(LocalDate.now().minusMonths(1).lengthOfMonth());
+                    filterTransactionsByDate(startPerviousMonth, endPerviousMonth);
                     break;
                 case "3":
 
-                    LocalDate sD3 = LocalDate.now();
-                    LocalDate sY = LocalDate.now().withDayOfYear(1);
-                    filterTransactionsByDate(sY, sD3);
+                    LocalDate startYear2Date = LocalDate.now();
+                    LocalDate endYear2Date = LocalDate.now().withDayOfYear(1);
+                    filterTransactionsByDate(endYear2Date, startYear2Date);
                     break;
 
                 case "4":
-
-                    LocalDate startDateYear = LocalDate.now().minusYears(1).withDayOfYear(1);
-                    LocalDate endDateYear = LocalDate.now().minusYears(1).withDayOfMonth(LocalDate.now().minusYears(1).lengthOfMonth());
-                    filterTransactionsByDate(startDateYear, endDateYear);
+                    //
+                    LocalDate startPerviousYear = LocalDate.now().minusYears(1).withDayOfYear(1);
+                    LocalDate endPerviousYear = LocalDate.now().minusYears(1).withDayOfMonth(LocalDate.now().minusYears(1).lengthOfMonth());
+                    filterTransactionsByDate(startPerviousYear, endPerviousYear);
                     break;
 
                 case "5":
@@ -257,7 +257,7 @@ public class FinancialTracker {
         }
     }
 
-
+            //Added .isEqual() || .isAfter/Before() to bypass dates being skipped
     private static void filterTransactionsByDate(LocalDate startDate, LocalDate endDate) {
 
         boolean found = false;
